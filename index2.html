@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+</head>
+<body>
+  
+    <p id="btc-price"></p>
+
+    <script>
+        function getBTCPrice() {
+            fetch('https://api.coinbase.com/v2/prices/spot?currency=USD')
+                .then(response => response.json())
+                .then(data => {
+                    const btcPrice = data.data.amount;
+                    document.getElementById('btc-price').textContent = " " + btcPrice;
+                })
+                .catch(error => {
+                    console.error('Error fetching BTC price:', error);
+                });
+        }
+
+        getBTCPrice();
+        // Refresh every minute
+        setInterval(getBTCPrice, 60000);
+    </script>
+</body>
+</html>
